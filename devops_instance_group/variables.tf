@@ -1,4 +1,4 @@
-## Copyright (c) 2021, Oracle and/or its affiliates.
+## Copyright (c) 2020, Oracle and/or its affiliates.
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 variable "tenancy_ocid" {}
@@ -7,33 +7,17 @@ variable "user_ocid" {}
 variable "fingerprint" {}
 variable "private_key_path" {}
 variable "region" {}
-variable "ssh_public_key" {
-  default = ""
-}
+variable "ssh_public_key" {}
 
-variable "execute_deployment" {
-  default = false
-}
 
-variable "release" {
-  description = "Reference Architecture Release (OCI Architecture Center)"
-  default     = "1.3"
-}
-
-variable "availablity_domain_name" {
-  default = ""
-}
-variable "VCN-CIDR" {
-  default = "10.0.0.0/16"
-}
-
-variable "Subnet-CIDR" {
-  default = "10.0.1.0/24"
-}
+# Specify any variable value's here
 
 variable "instance_shape" {
   description = "Instance Shape"
   default     = "VM.Standard.E3.Flex"
+}
+variable "availability_domain" {
+  default="3"
 }
 
 variable "instance_ocpus" {
@@ -63,15 +47,11 @@ variable "project_logging_config_retention_period_in_days" {
 }
 
 variable "project_description" {
-  default = "DevOps Project for Instance Group deployment"
+  default = "devops project"
 }
 
 variable "argument_substitution_mode" {
   default = "NONE"
-}
-
-variable "environment_type" {
-  default = "COMPUTE_INSTANCE_GROUP"
 }
 
 variable "deploy_stage_namespace" {
@@ -80,20 +60,4 @@ variable "deploy_stage_namespace" {
 
 variable "filename" {
   default = "script.sh"
-}
-
-variable "deploy_stage_deploy_stage_type" {
-  default = "COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_default_value" {
-  default = "defaultValue"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_description" {
-  default = "description"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_name" {
-  default = "name"
 }

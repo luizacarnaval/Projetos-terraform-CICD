@@ -1,6 +1,6 @@
-## Copyright (c) 2021, Oracle and/or its affiliates.
-## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
-
+# Copyright (c) 2020, 2021 Oracle and/or its affiliates. All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+# 
 
 resource "oci_core_virtual_network" "oke_vcn" {
   cidr_block     = lookup(var.network_cidrs, "VCN-CIDR")
@@ -8,8 +8,7 @@ resource "oci_core_virtual_network" "oke_vcn" {
   display_name   = "OKE ${var.app_name} VCN - ${random_string.deploy_id.result}"
   dns_label      = "oke${random_string.deploy_id.result}"
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_subnet" "oke_k8s_endpoint_subnet" {
@@ -23,8 +22,7 @@ resource "oci_core_subnet" "oke_k8s_endpoint_subnet" {
   dhcp_options_id            = oci_core_virtual_network.oke_vcn[0].default_dhcp_options_id
   security_list_ids          = [oci_core_security_list.oke_endpoint_security_list[0].id]
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 resource "oci_core_subnet" "oke_nodes_subnet" {
   cidr_block                 = lookup(var.network_cidrs, "SUBNET-REGIONAL-CIDR")
@@ -37,8 +35,7 @@ resource "oci_core_subnet" "oke_nodes_subnet" {
   dhcp_options_id            = oci_core_virtual_network.oke_vcn[0].default_dhcp_options_id
   security_list_ids          = [oci_core_security_list.oke_nodes_security_list[0].id]
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_subnet" "oke_lb_subnet" {
@@ -52,8 +49,7 @@ resource "oci_core_subnet" "oke_lb_subnet" {
   dhcp_options_id            = oci_core_virtual_network.oke_vcn[0].default_dhcp_options_id
   security_list_ids          = [oci_core_security_list.oke_lb_security_list[0].id]
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_route_table" "oke_private_route_table" {
@@ -74,8 +70,7 @@ resource "oci_core_route_table" "oke_private_route_table" {
     network_entity_id = oci_core_service_gateway.oke_service_gateway[0].id
   }
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 resource "oci_core_route_table" "oke_public_route_table" {
   compartment_id = local.oke_compartment_id
@@ -89,8 +84,7 @@ resource "oci_core_route_table" "oke_public_route_table" {
     network_entity_id = oci_core_internet_gateway.oke_internet_gateway[0].id
   }
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_nat_gateway" "oke_nat_gateway" {
@@ -99,8 +93,7 @@ resource "oci_core_nat_gateway" "oke_nat_gateway" {
   display_name   = "oke-nat-gateway-${local.app_name_normalized}-${random_string.deploy_id.result}"
   vcn_id         = oci_core_virtual_network.oke_vcn[0].id
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_internet_gateway" "oke_internet_gateway" {
@@ -109,8 +102,7 @@ resource "oci_core_internet_gateway" "oke_internet_gateway" {
   enabled        = true
   vcn_id         = oci_core_virtual_network.oke_vcn[0].id
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }
 
 resource "oci_core_service_gateway" "oke_service_gateway" {
@@ -121,6 +113,5 @@ resource "oci_core_service_gateway" "oke_service_gateway" {
     service_id = lookup(data.oci_core_services.all_services.services[0], "id")
   }
 
-  count        = var.create_new_oke_cluster ? 1 : 0
-  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  count = var.create_new_oke_cluster ? 1 : 0
 }

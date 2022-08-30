@@ -1,4 +1,4 @@
-## Copyright (c) 2021, Oracle and/or its affiliates.
+## Copyright © 2020, Oracle and/or its affiliates. 
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 # Create Dynamic Group and Policies
@@ -28,7 +28,7 @@ variable "deploy_pipeline_deploy_pipeline_parameters_items_name" {
 }
 
 variable "project_description" {
-  default = "DevOps Project for Function deployment"
+  default = "description"
 }
 variable "environment_type" {
   default = "FUNCTION"

@@ -1,6 +1,3 @@
-## Copyright (c) 2021, Oracle and/or its affiliates.
-## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
-
 variable "log_group_display_name" {
   default = "devops-logs"
 }
@@ -9,12 +6,10 @@ variable "notification_topic_name" {
   default = "devops-topic"
 }
 
-variable "execute_deployment" {
-  default = false
-}
+
 
 variable "project_description" {
-  default = "DevOps Project for OKE deployment"
+  default = "description"
 }
 
 variable "environment_display_name" {
@@ -78,16 +73,4 @@ variable "deploy_stage_display_name" {
 
 variable "deploy_stage_description" {
   default = "test deployment to OKE"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_default_value" {
-  default = "defaultValue"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_description" {
-  default = "description"
-}
-
-variable "deploy_pipeline_deploy_pipeline_parameters_items_name" {
-  default = "name"
 }
